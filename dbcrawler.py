@@ -2,8 +2,7 @@
 
 import fdb
 import logging
-from crawlerscommon import UppercaseFormatter
-from crawlerscommon import MECFormatter
+from crawlerscommon import SimpleFormatter, MECFormatter
 from crawlerscommon import Crawler
 
 DEP_TABLE = 0
@@ -20,7 +19,7 @@ class FDBCrawler(Crawler):
     ibconnection = None
     do_savesource = False
 
-    def __init__(self, ibdsn, ibusername, ibpassword, outputformatter=UppercaseFormatter()):
+    def __init__(self, ibdsn, ibusername, ibpassword, outputformatter=SimpleFormatter(uppercase=True)):
         super().__init__(outputformatter)
         self.ibdsn = ibdsn
         self.ibusername = ibusername
@@ -112,9 +111,10 @@ class FDBCrawler(Crawler):
             self.addValue(dep[0], '')
         self.printResult() 
 
-crawler = FDBCrawler('192.168.1.1:/mnt/backup/test.fdb', 'SYSDBA', 'test')
-crawler.setOutputFormatter(MECFormatter("View_"))
-#crawler.setSaveSource(True)
-#crawler.findTriggersForTables("tableswithtriggers.txt")
-crawler.findAllDependencies("finalfinalprocedures.txt", DEP_VIEW)
-#crawler.findAllProcedures()
+if __name__ == '__main__':
+    crawler = FDBCrawler('192.92.92.88:/mnt/backup/16042018.fdb', 'SYSDBA', 'testdb')
+    crawler.setOutputFormatter(MECFormatter("View_"))
+    #crawler.setSaveSource(True)
+    #crawler.findTriggersForTables("tableswithtriggers.txt")
+    crawler.findAllDependencies("finalfinalprocedures.txt", DEP_VIEW)
+    #crawler.findAllProcedures("allprocedures.txt")
