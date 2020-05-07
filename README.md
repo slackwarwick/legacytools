@@ -1,21 +1,26 @@
 Set of Python scripts serving as helpers at enterprise refactoring
 
 These scripts in Python 3 are my helpers at refactoring of legacy enterprise sourcecode and DB.
-They get stringlists (in form of text files) as input and produce stringlists as output.
+They can get stringlists (in form of text files) as input and produce stringlists as output.
 Their goal is to answer questions like "What are the dependendencies of that specific set of tables?" or "What subset of DB stored procedures are called from that source code tree?" and others like that.
 Typical usage is:
 
-1) Edit textcrawler.py or dbcrawler.py to create specific Crawler object and call its necessary method/methods (write one if it isn't present).
-2) Run the script and get the output.
+1) Edit <some>crawler.py to create specific Crawler methods (if necessary).
+2) Edit crawl.py to create one or more Crawler objects and call their methods.
+3) Run crawl.py and get the output.
+
+You can easily redirect script output to the text file:
+D:\Work\>py textcrawler.py > myresults.txt
 
 Currently available Crawlers are:
 
-- TextCrawler to search the source or text file tree.
+- FSCrawler to search the source or text file tree.
 - FDBCrawler to search Firebird Database.
+- HGCrawler to search and operate HG repository
 
-Crawlers can be tuned by OutputFormatter objects to get more useful strings as output. Currently available formatters are:
+Crawlers can be tuned by Formatter objects to get more useful strings as output. Currently available formatters are:
 
-- UppercaseFormatter to get the strings in upper case.
+- SimpleFormatter to get just the string list ("as is" or uppercase).
 ...
 DBOBJECTS
 DBUSERS
@@ -33,7 +38,5 @@ Table_0=DBOBJECTS
 Table_1=DBUSERS
 ...
 
-You can easily redirect script output to the text file:
-D:\Work\>py textcrawler.py > myresults.txt
 
 
